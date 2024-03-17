@@ -1,0 +1,20 @@
+body    {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container  {
+    border: 1px black solid;
+    height: 532px;
+    width: 532px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square {
+    height: 31.25px;
+    width: 31.25px;
+    border:1px black solid;
+}
