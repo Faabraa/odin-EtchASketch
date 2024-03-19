@@ -1,44 +1,75 @@
 const container = document.querySelector(".container");
+const buttonContainer = document.querySelector(".buttonContainer");
 let isDrawing = false;
-createDivs();
+let size = 16;
+resize(size);
 mouseDrawing();
-resetDraw();
+
+//RESETS Sketch if the button is pressed
+buttonContainer.addEventListener("click", (event) => {
+    if (event.target.classList.contains("reset")) {
+        resetDraw();
+    }
+});
+
+//Changes Sketch size if RESIZE button is pressed
+buttonContainer.addEventListener("click", (event) => {
+    if (event.target.classList.contains("resize")) {
+        let newSize = prompt("Which size would you like the Sketch to be?(100 max)");
+        newSize = parseInt(newSize);
+        if (newSize > 0 && newSize <= 100) {
+            resize(newSize);
+        } else {
+            alert("Value must be 0 - 100");
+        }
+    }
+});
 /**
- * Creates a 16 * 16 where you will be able to draw with your cursor
+ * Creates the size of the Sketch
+ * @param {int} num 
  */
-function createDivs() {
-    for (let i = 0; i < 16 * 16; i++) {
+function createDivs(num) {
+    container.innerHTML = "";
+    for (let i = 0; i < num * num; i++) {
         let div = document.createElement("div");
         div.className = "square";
         container.appendChild(div);
     }
 }
 /**
- * Detects where is the mouse, and if inside the container (On top of the divs)
- * Lets you draw, changing the background color to black
+ * How drawing works with mouse
  */
 function mouseDrawing() {
-    //Reads mouse inside container
-    container.addEventListener('mouseenter', () => {
+    //If M1 is being holded you'll draw
+    container.addEventListener('mousedown', () => {
         isDrawing = true;
     });
-    //Reads mouse outside container
-    container.addEventListener('mouseleave', () =>  {
+    //If M1 is not being holded you wont draw
+    container.addEventListener('mouseup', () => {
         isDrawing = false;
     });
-    container.addEventListener('mousemove', (event) => {
-        if (isDrawing) {
-            //If the cursor is on top of the square
-            if (event.target.classList.contains('square')) {
-                //Draw in black (each div)
-                event.target.style.backgroundColor = 'black';
-            }
+    //If M1 is being holded and ur on top of the container you'll draw
+    container.addEventListener('mouseover', (event) => {
+        if (isDrawing && event.target.classList.contains('square')) {
+            event.target.style.backgroundColor = 'black';
         }
     });
 }
 /**
- * If you press a button the draw will be restarted
+ * Resets the draw made for now
  */
 function resetDraw() {
-
+    const squares = document.querySelectorAll('.square');
+    squares.forEach(square => {
+        square.style.backgroundColor = "white";
+    });
+}
+/**
+ * Changes the size of the current container
+ * @param {int} newSize 
+ */
+function resize(newSize) {
+    size = newSize;
+    container.style.setProperty('--size', size);
+    createDivs(size);
 }

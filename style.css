@@ -1,7 +1,8 @@
-body    {
+.bigContainer    {
     height: 100vh;
     margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -14,6 +15,23 @@ body    {
 }
 
 .square {
-    height: 33.25px;
-    width: 33.25px;
+    /*Divides the divs inside the container in same size*/
+    height: calc(100% / var(--size));
+    width: calc(100% / var(--size));
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+    width: 534px;
+}
+
+button  {
+    margin-right: 20px;
+    border-radius: 5px;
+    height: 40px;
+    width: 90px;
+    background-color: aquamarine;
 }
