@@ -51,7 +51,10 @@ function mouseDrawing() {
     //If M1 is being holded and ur on top of the container you'll draw
     container.addEventListener('mouseover', (event) => {
         if (isDrawing && event.target.classList.contains('square')) {
-            event.target.style.backgroundColor = 'black';
+            //Makes the color on the Sketch random
+            event.target.style.backgroundColor = 'rgb(' + Math.round(Math.random() * 255) + 
+            ',' +  Math.round(Math.random() * 255) +
+            ',' + Math.round(Math.random() * 255) + ')';
         }
     });
 }
